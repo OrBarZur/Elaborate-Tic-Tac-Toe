@@ -8,9 +8,9 @@ class GUI:
     
     def drawBoard(self, n, x, y, size):
         self.don.speed(0)
-        for c in xrange(x, x + size + size / (n * 2), size / n):
+        for c in range(x, x + size + size / (n * 2), size / n):
             self.drawLine(c, y, c, y - size)
-        for r in xrange(y, y - size - size / (n * 2), -size / n):
+        for r in range(y, y - size - size / (n * 2), -size / n):
             self.drawLine(x, r, x + size, r)
 
     def drawLine(self, startX, startY, endX, endY):
@@ -57,7 +57,7 @@ class Board:
 
         self.done = False
         self.count = 0
-        self.board = [[0 for j in xrange(self.n)] for i in xrange(self.n)]
+        self.board = [[0 for j in range(self.n)] for i in range(self.n)]
 
         self.msg_errAlreadyPlayed = "Already played, try again"
         self.msg_errBadMove = "Bad move, try again"
@@ -73,16 +73,16 @@ class Board:
         
     def errBadMove(self):
         if self.msg_errBadMove != "":
-            print self.msg_errBadMove
+            print (self.msg_errBadMove)
             
     def errAlreadyPlayed(self):
         if self.msg_errAlreadyPlayed != "":
-            print self.msg_errAlreadyPlayed
+            print (self.msg_errAlreadyPlayed)
 
     def printBoard(self):
-        print "Board:"
-        for i in xrange(self.n):
-            print self.board[i]
+        print ("Board:")
+        for i in range(self.n):
+            print (self.board[i])
         
     def play(self, player, i, j):
         if i < 0 or i >= self.n or j < 0 or j >= self.n or (player != self.playerX and player != self.playerO):
@@ -120,19 +120,19 @@ class Board:
     def checkPlayerWin(self, player):
         cells = []
         #Rows
-        for i in xrange(self.n):
+        for i in range(self.n):
             if sum(self.board[i]) == self.n * player:
-                cells = [(i, j) for j in xrange(self.n)]
+                cells = [(i, j) for j in range(self.n)]
         #Columns
-        for j in xrange(self.n):
-            if sum([self.board[i][j] for i in xrange(self.n)]) == self.n * player:
-                cells = [(i, j) for i in xrange(self.n)]
+        for j in range(self.n):
+            if sum([self.board[i][j] for i in range(self.n)]) == self.n * player:
+                cells = [(i, j) for i in range(self.n)]
         #Main diagonal
-        if sum([self.board[i][i] for i in xrange(self.n)]) == self.n * player:
-                cells = [(i, i) for i in xrange(self.n)]
+        if sum([self.board[i][i] for i in range(self.n)]) == self.n * player:
+                cells = [(i, i) for i in range(self.n)]
         #Secondary diagonal
-        if sum([self.board[i][self.n - i - 1] for i in xrange(self.n)]) == self.n * player:
-                cells = [(i, self.n - i - 1) for i in xrange(self.n)]
+        if sum([self.board[i][self.n - i - 1] for i in range(self.n)]) == self.n * player:
+                cells = [(i, self.n - i - 1) for i in range(self.n)]
 
         self.gui.bold()
         for cell in cells:
@@ -171,7 +171,7 @@ class UltimateBoard(Board):
 
         self.highlight_gui = GUI()
         
-        self.boards = [[Board(n, self.x + j * self.size / self.n + 5 * self.size / (self.n * 100), self.y - i * self.size / self.n - 5 * self.size / (self.n * 100), (90 * self.size) / (100 * n) ,False) for j in xrange(self.n)] for i in xrange(self.n)]
+        self.boards = [[Board(n, self.x + j * self.size / self.n + 5 * self.size / (self.n * 100), self.y - i * self.size / self.n - 5 * self.size / (self.n * 100), (90 * self.size) / (100 * n) ,False) for j in range(self.n)] for i in range(self.n)]
         self.curPlayer = self.playerX
         self.curI = -1
         self.curJ = -1
@@ -199,7 +199,7 @@ class UltimateBoard(Board):
         self.highlight_gui.normal()
         
     def clearCell(self):
-        for i in xrange(16):
+        for i in range(16):
             self.highlight_gui.don.undo()
         self.highlight_gui.normal()
             
@@ -238,21 +238,22 @@ class UltimateBoard(Board):
         else:
             return self.invalid
 
+
 while True:
-    Type = int(raw_input("Which game do you want (1 - Ultimate / 2 - Regular)? "))
+    Type = int(input("Which game do you want (1 - Ultimate / 2 - Regular)? "))
     if Type == 1:
-        Size = int(raw_input("Which size do you want it to be (2 or 3 or 4)? "))
+        Size = int(input("Which size do you want it to be (2 or 3 or 4)? "))
         if Size >= 2 or size <= 4:
             b = UltimateBoard(Size, -300, 300, 600, True)
             b.start()
         else:
-            print 'Sorry, it is impossible'
+            print ('Sorry, it is impossible')
     elif Type == 2:
         Size = int(raw_input("Which size do you want it to be (2 or 3 or 4 or 5)? "))
         if Size >= 2 or size <= 5:
             b = Board(Size, -300, 300, 600, True)
             b.start()
         else:
-            print 'Sorry, it is impossible'
+            print ('Sorry, it is impossible')
     else:
-        print 'Sorry, it is impossible'
+        print ('Sorry, it is impossible')
