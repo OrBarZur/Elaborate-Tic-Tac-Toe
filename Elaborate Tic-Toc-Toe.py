@@ -243,14 +243,14 @@ while True:
     Type = int(input("Which game do you want (1 - Ultimate / 2 - Regular)? "))
     if Type == 1:
         Size = int(input("Which size do you want it to be (2 or 3 or 4)? "))
-        if Size >= 2 or size <= 4:
+        if Size >= 2 or Size <= 4:
             b = UltimateBoard(Size, -300, 300, 600, True)
             b.start()
         else:
             print ('Sorry, it is impossible')
     elif Type == 2:
-        Size = int(raw_input("Which size do you want it to be (2 or 3 or 4 or 5)? "))
-        if Size >= 2 or size <= 5:
+        Size = int(input("Which size do you want it to be (2 or 3 or 4 or 5)? "))
+        if Size >= 2 or Size <= 5:
             b = Board(Size, -300, 300, 600, True)
             b.start()
         else:
